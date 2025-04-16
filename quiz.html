@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Quiz</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .quiz-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .question {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-left: 4px solid #4CAF50;
+            background-color: #f9f9f9;
+        }
+        .options {
+            margin-bottom: 15px;
+        }
+        .option {
+            display: block;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .option:hover {
+            background-color: #f0f0f0;
+        }
+        .option.selected {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+        .results {
+            text-align: center;
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: #e8f5e9;
+            display: none;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .progress-container {
+            margin-bottom: 20px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            height: 10px;
+        }
+        .progress-bar {
+            height: 100%;
+            background-color: #4CAF50;
+            border-radius: 5px;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        .feedback {
+            margin-top: 5px;
+            font-style: italic;
+            min-height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>Interactive Quiz</h1>
+        
+        <div class="progress-container">
+            <div class="progress-bar" id="progress"></div>
+        </div>
+        
+        <div id="quiz">
+            <!-- Questions will be inserted here by JavaScript -->
+        </div>
+        
+        <div class="controls">
+            <button id="submit-btn">Submit Answer</button>
+            <button id="next-btn" style="display: none;">Next Question</button>
+        </div>
+        
+        <div class="results" id="results">
+            <h2>Quiz Results</h2>
+            <p id="score-display"></p>
+            <button id="restart-btn">Restart Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        // Quiz data
+        const quizData = [
+            {
+                question: "What is JavaScript primarily used for?",
+                options: [
+                    "Creating dynamic web content",
+                    "Database management",
+                    "Server configuration",
+                    "Network security"
+                ],
+                answer: 0,
+                feedback: "JavaScript is primarily used to create dynamic and interactive web content."
+            },
+            {
+                question: "Which of the following is NOT a JavaScript framework?",
+                options: [
+                    "React",
+                    "Angular",
+                    "Vue",
+                    "Django"
+                ],
+                answer: 3,
+                feedback: "Django is a Python framework, not JavaScript."
+            },
+            {
+                question: "Which method is used to add an element at the end of an array?",
+                options: [
+                    "push()",
+                    "append()",
+                    "addToEnd()",
+                    "insert()"
+                ],
+                answer: 0,
+                feedback: "The push() method adds one or more elements to the end of an array."
+            },
+            {
+                question: "What does DOM stand for?",
+                options: [
+                    "Document Object Model",
+                    "Data Object Model",
+                    "Document Oriented Middleware",
+                    "Digital Ordinance Model"
+                ],
+                answer: 0,
+                feedback: "DOM stands for Document Object Model which represents the page so programs can change document structure, style, and content."
+            },
+            {
+                question: "Which symbol is used for single-line comments in JavaScript?",
+                options: [
+                    "//",
+                    "/**/",
+                    "#",
+                    "--"
+                ],
+                answer: 0,
+                feedback: "// is used for single-line comments in JavaScript."
+            }
+        ];
+
+        // Quiz state
+        let currentQuestion = 0;
+        let score = 0;
+        let answered = false;
+        let selectedOption = null;
+
+        // DOM elements
+        const quizElement = document.getElementById('quiz');
+        const submitBtn = document.getElementById('submit-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const resultsElement = document.getElementById('results');
+        const scoreDisplay = document.getElementById('score-display');
+        const restartBtn = document.getElementById('restart-btn');
+        const progressBar = document.getElementById('progress');
+
+        // Initialize quiz
+        function initQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            answered = false;
+            selectedOption = null;
+            showQuestion();
+            resultsElement.style.display = 'none';
+            submitBtn.style.display = 'block';
+            nextBtn.style.display = 'none';
+            updateProgress();
+        }
+
+        // Display current question
+        function showQuestion() {
+            answered = false;
+            selectedOption = null;
+            
+            const questionData = quizData[currentQuestion];
+            
+            let questionHTML = `
+                <div class="question">
+                    <h3>Question ${currentQuestion + 1} of ${quizData.length}</h3>
+                    <p>${questionData.question}</p>
+                    <div class="options">
+            `;
+            
+            questionData.options.forEach((option, index) => {
+                questionHTML += `
+                    <div class="option" data-index="${index}">
+                        ${option}
+                    </div>
+                `;
+            });
+            
+            questionHTML += `
+                    </div>
+                    <div class="feedback" id="feedback"></div>
+                </div>
+            `;
+            
+            quizElement.innerHTML = questionHTML;
+            
+            // Add event listeners to options
+            document.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', selectOption);
+            });
+        }
+
+        // Handle option selection
+        function selectOption(e) {
+            if (answered) return;
+            
+            // Remove selected class from all options
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked option
+            e.target.classList.add('selected');
+            selectedOption = parseInt(e.target.getAttribute('data-index'));
+        }
+
+        // Handle submit button click
+        function submitAnswer() {
+            if (selectedOption === null || answered) return;
+            
+            answered = true;
+            const questionData = quizData[currentQuestion];
+            const options = document.querySelectorAll('.option');
+            
+            // Check if answer is correct
+            if (selectedOption === questionData.answer) {
+                options[selectedOption].classList.add('correct');
+                score++;
+                document.getElementById('feedback').textContent = "Correct! " + questionData.feedback;
+            } else {
+                options[selectedOption].classList.add('incorrect');
+                options[questionData.answer].classList.add('correct');
+                document.getElementById('feedback').textContent = "Incorrect. " + questionData.feedback;
+            }
+            
+            // Show next button or results
+            submitBtn.style.display = 'none';
+            
+            if (currentQuestion < quizData.length - 1) {
+                nextBtn.style.display = 'block';
+            } else {
+                showResults();
+            }
+        }
+
+        // Move to next question
+        function nextQuestion() {
+            currentQuestion++;
+            showQuestion();
+            submitBtn.style.display = 'block';
+            nextBtn.style.display = 'none';
+            updateProgress();
+        }
+
+        // Display quiz results
+        function showResults() {
+            quizElement.innerHTML = '';
+            resultsElement.style.display = 'block';
+            scoreDisplay.textContent = `You scored ${score} out of ${quizData.length}!`;
+            submitBtn.style.display = 'none';
+            nextBtn.style.display = 'none';
+        }
+
+        // Update progress bar
+        function updateProgress() {
+            const progress = ((currentQuestion) / quizData.length) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+
+        // Event listeners
+        submitBtn.addEventListener('click', submitAnswer);
+        nextBtn.addEventListener('click', nextQuestion);
+        restartBtn.addEventListener('click', initQuiz);
+
+        // Initialize quiz when page loads
+        initQuiz();
+    </script>
+</body>
+</html>
