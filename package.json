@@ -1,0 +1,20 @@
+{
+  "name": "classmaster-website",
+  "version": "1.0.0",
+  "description": "ClassMaster website using Tailwind CSS",
+  "main": "index.html",
+  "scripts": {
+    "build:css": "tailwindcss -i ./src/input.css -o ./dist/output.css",
+    "watch:css": "tailwindcss -i ./src/input.css -o ./dist/output.css --watch"
+  },
+  "keywords": [
+    "classmaster",
+    "tailwind",
+    "css"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "tailwindcss": "^3.3.0"
+  }
+}
