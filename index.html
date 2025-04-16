@@ -3,81 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to ClassMaster</title>
+    <title>ClassMaster Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="./dist/output.css" rel="stylesheet">
 </head>
-<body class="flex flex-col min-h-screen bg-gray-100">
-    <!-- Header with Tailwind CSS -->  
-    <header class="bg-primary text-white w-full shadow-md sticky top-0 z-50">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <!-- Logo -->  
-            <a href="#" class="flex items-center font-bold text-xl">
-                <svg class="h-10 w-10 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<body class="flex min-h-screen bg-lightgray font-sans">
+    <!-- Sidebar -->  
+    <aside class="w-64 bg-sidebar min-h-screen border-r border-gray-200 fixed left-0 top-0 bottom-0 overflow-y-auto">
+        <!-- Logo -->  
+        <div class="p-6 border-b border-gray-200">
+            <a href="#" class="flex items-center">
+                <svg class="h-8 w-8 text-coral" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
                     <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
                 </svg>
-                ClassMaster
+                <span class="ml-3 text-xl font-bold text-gray-800">ACERO</span>
             </a>
-            
-            <!-- Navigation Links -->  
-            <nav class="hidden md:block">
-                <ul class="flex space-x-6">
-                    <li><a href="#home" class="nav-link">Home</a></li>
-                    <li><a href="#features" class="nav-link">Features</a></li>
-                    <li><a href="#demo" class="nav-link">Demo</a></li>
-                    <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
-                    <li><a href="#contact" class="nav-link">Contact</a></li>
-                </ul>
-            </nav>
-            
-            <!-- Mobile Menu Button -->  
-            <button class="md:hidden text-white focus:outline-none" id="mobile-menu-button">
-                <i class="fas fa-bars text-xl"></i>
-            </button>
         </div>
         
-        <!-- Mobile Menu (hidden by default) -->  
-        <div class="md:hidden hidden bg-primary" id="mobile-menu">
-            <ul class="flex flex-col items-center py-4 space-y-4">
-                <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#features" class="nav-link">Features</a></li>
-                <li><a href="#demo" class="nav-link">Demo</a></li>
-                <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-            </ul>
-        </div>
-    </header>
-    <main class="flex-grow container mx-auto px-4 py-8 text-center">
-        <p class="mb-4">Welcome to ClassMaster - the ultimate class management application!</p>
-        <p class="mb-4">Here you can find information about our features, see demos, and read testimonials.</p>
-        <p class="mb-4">This is a simple example of a homepage. You can customize it as you wish.</p>
-    </main>
+        <!-- Sidebar Navigation -->  
+        <nav class="mt-6">
+            <div class="px-6">
+                <a href="#" class="flex items-center px-4 py-3 text-gray-500 rounded-lg bg-coral/10">
+                    <i class="fas fa-tachometer-alt text-coral"></i>
+                    <span class="mx-3 text-coral font-medium">Dashboard</span>
+                </a>
+                
+                <a href="#" class="flex items-center px-4 py-3 mt-4 text-gray-500 hover:bg-gray-100 rounded-lg">
+                    <i class="fas fa-user-graduate text-gray-400"></i>
+                    <span class="mx-3">Students</span>
+                </a>
+                
+                <a href="#" class="flex items-center px-4 py-3 mt-4 text-gray-500 hover:bg-gray-100 rounded-lg">
+                    <i class="fas fa-chalkboard-teacher text-gray-400"></i>
+                    <span class="mx-3">Teachers</span>
+                </a>
+                
+                <a href="#" class="flex items-center px-4 py-3 mt-4 text-gray-500 hover:bg-gray-100 rounded-lg">
+                    <i class="fas fa-users text-gray-400"></i>
+                    <span class="mx-3">Parents</span>
+                </a>
+                
+                <a href="#" class="flex items-center px-4 py-3 mt-4 text-gray-500 hover:bg-gray-100 rounded-lg">
+                    <i class="fas fa-user-circle text-gray-400"></i>
+                    <span class="mx-3">Account</span>
+                </a>
+                
+                <a href="#" class="flex items-center px-4 py-3 mt-4 text-gray-500 hover:bg-gray-100 rounded-lg">
+                    <i class="fas fa-school text-gray-400"></i>
+                    <span class="mx-3">Class</span>
+                </a>
+                
+                <a href="#" class="flex items-center px-4 py-3 mt-4 text-gray-500 hover:bg-gray-100 rounded-lg">
+                    <i class="fas fa-file-alt text-gray-400"></i>
+                    <span class="mx-3">Exam</span>
+                </a>
+                
+                <a href="#" class="flex items-center px-4 py-3 mt-4 text-gray-500 hover:bg-gray-100 rounded-lg">
+                    <i class="fas fa-bus text-gray-400"></i>
+                    <span class="mx-3">Transport</span>
+                </a>
+                
+                <a href="#" class="flex items-center px-4 py-3 mt-4 text-gray-500 hover:bg-gray-100 rounded-lg">
+                    <i class="fas fa-exclamation-triangle text-gray-400"></i>
+                    <span class="mx-3">Notice</span>
+                </a>
+            </div>
+        </nav>
+    </aside>
     
-    <footer class="bg-primary text-white py-4 text-center">
-        <p>&copy; 2025 ClassMaster. All rights reserved.</p>
-    </footer>
+    <!-- Main Content Area -->  
+    <div class="ml-64 flex-1 flex flex-col">
+        <!-- Top Navigation Bar -->  
+        <header class="bg-white shadow-sm sticky top-0 z-10">
+            <div class="flex justify-between items-center px-8 py-4">
+                <h1 class="text-2xl font-semibold text-gray-800">Dashboard</h1>
+                
+                <!-- Search Bar -->  
+                <div class="relative w-96">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                        <i class="fas fa-search text-gray-400"></i>
+                    </span>
+                    <input type="text" placeholder="Search" class="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-coral/50">
+                </div>
+                
+                <!-- User Menu -->  
+                <div class="flex items-center space-x-4">
+                    <button class="p-1 text-gray-500 hover:text-coral">
+                        <span class="bg-coral/10 text-coral px-3 py-1 rounded-lg flex items-center">
+                            <span class="mr-1">EN</span>
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </header>
+        <!-- Dashboard Content -->  
+        <main class="flex-1 p-8 bg-lightgray overflow-auto">
+            <!-- Stats Cards -->  
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <!-- Students Card -->  
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h3 class="text-gray-500 text-sm font-medium">Students</h3>
+                            <p class="text-3xl font-semibold text-darkblue mt-1">1260</p>
+                        </div>
+                        <button class="h-10 w-10 rounded-full bg-darkblue/10 flex items-center justify-center text-darkblue">
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Teachers Card -->  
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h3 class="text-gray-500 text-sm font-medium">Teachers</h3>
+                            <p class="text-3xl font-semibold text-darkblue mt-1">224</p>
+                        </div>
+                        <button class="h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-400">
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Parents Card -->  
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h3 class="text-gray-500 text-sm font-medium">Parents</h3>
+                            <p class="text-3xl font-semibold text-darkblue mt-1">840</p>
+                        </div>
+                        <button class="h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-400">
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Earnings Card -->  
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h3 class="text-gray-500 text-sm font-medium">Earnings</h3>
+                            <p class="text-3xl font-semibold text-darkblue mt-1">$54000</p>
+                        </div>
+                        <button class="h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-400">
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
     
     <script>
-        // Mobile menu toggle functionality
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-            mobileMenuButton.innerHTML = mobileMenu.classList.contains('hidden') 
-                ? '<i class="fas fa-bars text-xl"></i>' 
-                : '<i class="fas fa-times text-xl"></i>';
-        });
-        
-        // Close mobile menu when a link is clicked
-        const mobileNavLinks = document.querySelectorAll('#mobile-menu a');
-        mobileNavLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-                mobileMenuButton.innerHTML = '<i class="fas fa-bars text-xl"></i>';
-            });
-        });
+        // No mobile menu functionality needed for dashboard layout
     </script>
 </body>
 </html>
